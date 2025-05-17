@@ -9,12 +9,14 @@ Copyright © All rights Reserved
 
 */
 
-$(function() {
+$(function () {
     "use strict";
 
     /*-----------------------------------
      * FIXED  MENU - HEADER
      *-----------------------------------*/
+    $('body').css('display', 'none');
+    $('body').fadeIn(1000);
     function menuscroll() {
         var $navmenu = $('.nav-menu');
         if ($(window).scrollTop() > 50) {
@@ -24,24 +26,24 @@ $(function() {
         }
     }
     menuscroll();
-    $(window).on('scroll', function() {
+    $(window).on('scroll', function () {
         menuscroll();
     });
     /*-----------------------------------
      * NAVBAR CLOSE ON CLICK
      *-----------------------------------*/
 
-    $('.navbar-nav > li:not(.dropdown) > a').on('click', function() {
+    $('.navbar-nav > li:not(.dropdown) > a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
     });
     /* 
      * NAVBAR TOGGLE BG
      *-----------------*/
     var siteNav = $('#navbar');
-    siteNav.on('show.bs.collapse', function(e) {
+    siteNav.on('show.bs.collapse', function (e) {
         $(this).parents('.nav-menu').addClass('menu-is-open');
     })
-    siteNav.on('hide.bs.collapse', function(e) {
+    siteNav.on('hide.bs.collapse', function (e) {
         $(this).parents('.nav-menu').removeClass('menu-is-open');
     })
 
@@ -49,7 +51,7 @@ $(function() {
      * ONE PAGE SCROLLING
      *-----------------------------------*/
     // Select all links with hashes
-    $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').not('[data-toggle="tab"]').on('click', function(event) {
+    $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').not('[data-toggle="tab"]').on('click', function (event) {
         // On-page links
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             // Figure out element to scroll to
@@ -61,7 +63,7 @@ $(function() {
                 event.preventDefault();
                 $('html, body').animate({
                     scrollTop: target.offset().top
-                }, 1000, function() {
+                }, 1000, function () {
                     // Callback after animation
                     // Must change focus!
                     var $target = $(target);
@@ -77,6 +79,36 @@ $(function() {
         }
     });
     /*-----------------------------------
+     * SCROLL ANIMATION WITH AOS
+     *-----------------------------------*/
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out',
+        });
+    }
+
+    /*-----------------------------------
+     * FADE-IN ELEMENTS ON SCROLL (jQuery fallback)
+     *-----------------------------------*/
+    $('.animate-on-scroll').css('opacity', 0);
+
+
+
+    function animateOnScroll() {
+        $('.animate-on-scroll').each(function () {
+            var $el = $(this);
+            if ($el.offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                $el.animate({ opacity: 1, top: 0 }, 700);
+            }
+        });
+    }
+
+    $(window).on('scroll', animateOnScroll);
+    animateOnScroll();
+
+    /*-----------------------------------
      * OWL CAROUSEL
      *-----------------------------------*/
     var $testimonialsDiv = $('.testimonials');
@@ -88,7 +120,23 @@ $(function() {
             navText: ['<span class="ti-arrow-left"></span>', '<span class="ti-arrow-right"></span>']
         });
     }
+    const $truck = $('#truckImage');
+    let truckAnimated = false;
 
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top <= window.innerHeight && rect.bottom >= 0;
+    }
+
+    function checkTruckInView() {
+        if (!truckAnimated && isInViewport($truck[0])) {
+            $truck.addClass('animate');
+            truckAnimated = true;
+        }
+    }
+
+    $(window).on('scroll', checkTruckInView);
+    checkTruckInView();
     var $galleryDiv = $('.img-gallery');
     if ($galleryDiv.length && $.fn.owlCarousel) {
         $galleryDiv.owlCarousel({
@@ -108,5 +156,23 @@ $(function() {
             }
         });
     }
+    $(function () {
+        function isInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return rect.top <= window.innerHeight && rect.bottom >= 0;
+        }
+
+        function checkHeaderText() {
+            $('h1').each(function () {
+                if (isInViewport(this)) {
+                    $(this).addClass('animate');
+                }
+            });
+        }
+
+        $(window).on('scroll', checkHeaderText);
+        checkHeaderText(); // cek langsung saat load
+    });
+
 
 }); /* End Fn */
