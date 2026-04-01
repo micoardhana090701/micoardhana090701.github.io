@@ -1,846 +1,876 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Mico Yumna Ardhana</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Mico Yumna Ardhana — Mobile Developer</title>
+  <meta content="Flutter & Kotlin Mobile App Developer" name="description">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Icons -->
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- GLightbox -->
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    :root {
+      --n950: #020e1e;
+      --n900: #041524;
+      --n800: #071e33;
+      --n700: #0a2744;
+      --n600: #0d3155;
+      --n500: #123d6e;
+      --n400: #1a5190;
+      --n300: #2563ae;
+      --n200: #3b82cc;
+      --n100: #60a5e8;
+      --accent: #4da6ff;
+      --accent2: #00d4ff;
+      --accent-glow: rgba(77,166,255,0.28);
+      --t1: rgba(255,255,255,0.95);
+      --t2: rgba(255,255,255,0.58);
+      --t3: rgba(255,255,255,0.32);
+      --glass: rgba(255,255,255,0.05);
+      --glass-h: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.09);
+      --border-h: rgba(77,166,255,0.35);
+      --r-s: 10px; --r-m: 16px; --r-l: 22px; --r-xl: 30px; --r-p: 999px;
+      --sh: 0 8px 32px rgba(0,0,0,0.4);
+      --shg: 0 0 28px rgba(77,166,255,0.22);
+      --ease: cubic-bezier(.4,0,.2,1);
+      --t: .26s;
+      --sw: 290px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--n950);
+      color: var(--t1); line-height: 1.65; overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
 
-  <!-- =======================================================
-  * Template Name: iPortfolio
-  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    /* BG */
+    .bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .bg::before {
+      content: ''; position: absolute;
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(18,61,110,0.38) 0%, transparent 68%);
+      top: -350px; left: -250px;
+      animation: d1 28s ease-in-out infinite;
+    }
+    .bg::after {
+      content: ''; position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%);
+      bottom: -200px; right: -150px;
+      animation: d2 34s ease-in-out infinite;
+    }
+    @keyframes d1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,40px) scale(1.08)} }
+    @keyframes d2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,-50px) scale(1.06)} }
+
+    /* SIDEBAR */
+    #header {
+      position: fixed; top:0; left:0; bottom:0;
+      width: var(--sw); z-index: 9997;
+      overflow-y: auto; overflow-x: hidden;
+      background: rgba(2,14,30,0.82);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 32px 20px;
+      transition: left .5s var(--ease);
+    }
+    #header::-webkit-scrollbar { width: 3px; }
+    #header::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .profile { text-align: center; margin-bottom: 6px; }
+
+    .pimg-wrap {
+      width: 106px; height: 106px;
+      margin: 0 auto 14px;
+      position: relative; display: inline-block;
+    }
+    .pimg-wrap::before {
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent2), var(--n300), var(--accent));
+      animation: spin 7s linear infinite; z-index: 0;
+    }
+    .pimg-wrap::after {
+      content: ''; position: absolute; inset: 0; margin: 3px;
+      border-radius: 50%; background: var(--n900); z-index: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pimg-wrap img {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; position: relative; z-index: 1;
+      border: 3px solid var(--n900);
+    }
+
+    .profile h1 {
+      font-size: 1.12rem; font-weight: 700;
+      color: var(--t1); letter-spacing: -0.3px; line-height: 1.3;
+    }
+    .profile h1 a { color: inherit; }
+
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin: 8px auto 0;
+      background: rgba(77,166,255,0.1);
+      border: 1px solid rgba(77,166,255,0.22);
+      border-radius: var(--r-p); padding: 4px 12px;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.3px;
+    }
+    .rdot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent2);
+      animation: pd 2s ease-in-out infinite;
+    }
+    @keyframes pd { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.65)} }
+
+    .social-links {
+      display: flex; gap: 8px; justify-content: center; margin: 18px 0;
+    }
+    .social-links a {
+      width: 38px; height: 38px; border-radius: var(--r-s);
+      background: var(--glass); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--t2); font-size: 1rem;
+      transition: all var(--t) var(--ease);
+    }
+    .social-links a:hover {
+      background: var(--accent); border-color: var(--accent);
+      color: #fff; transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(77,166,255,0.4);
+    }
+
+    .sdiv { height:1px; background: linear-gradient(90deg,transparent,var(--border),transparent); margin: 4px 0 14px; }
+
+    .nav-menu { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .nav-menu a {
+      display: flex; align-items: center; gap: 11px;
+      padding: 11px 14px; border-radius: var(--r-m);
+      color: var(--t2); font-size: .875rem; font-weight: 500;
+      transition: all var(--t) var(--ease); position: relative;
+    }
+    .nav-menu a::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%); width: 0; height: 55%;
+      border-radius: 0 3px 3px 0; background: var(--accent);
+      transition: width .18s var(--ease);
+    }
+    .nav-menu a i { font-size: 1.05rem; color: var(--t3); transition: color var(--t) var(--ease); flex-shrink: 0; }
+    .nav-menu a:hover, .nav-menu a.active {
+      background: var(--glass-h); color: var(--t1);
+    }
+    .nav-menu a:hover i, .nav-menu a.active i { color: var(--accent); }
+    .nav-menu a:hover::before, .nav-menu a.active::before { width: 3px; }
+
+    .sfooter { margin-top: 20px; font-size: .67rem; color: var(--t3); text-align: center; line-height: 1.6; }
+
+    .mobile-nav-toggle {
+      position: fixed; top: 14px; left: 14px;
+      font-size: 1.5rem; color: var(--t1);
+      z-index: 9998; cursor: pointer;
+      background: rgba(2,14,30,0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      width: 44px; height: 44px; border-radius: var(--r-m);
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--t) var(--ease);
+    }
+    .mobile-nav-toggle:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* MAIN */
+    #main { margin-left: var(--sw); min-height: 100vh; position: relative; z-index: 1; }
+
+    /* SECTIONS */
+    section { padding: 70px 50px; }
+
+    .sec-title { margin-bottom: 44px; }
+    .sec-label {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 3px; color: var(--accent); margin-bottom: 8px;
+    }
+    .sec-label::after { content:''; height:1px; width:32px; background:var(--accent); opacity:.45; }
+    .sec-title h2 {
+      font-size: 2.15rem; font-weight: 800; letter-spacing: -.8px;
+      line-height: 1.2; color: var(--t1);
+    }
+    .sec-title h2 span { color: var(--accent); }
+    .sec-title p { color: var(--t2); margin-top: 6px; font-size: .93rem; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 80px 50px;
+      background:
+        radial-gradient(ellipse at 20% 55%, rgba(18,61,110,0.38) 0%, transparent 62%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,212,255,0.05) 0%, transparent 55%);
+    }
+    .hero-inner { max-width: 680px; }
+
+    .htag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(77,166,255,0.09);
+      border: 1px solid rgba(77,166,255,0.22);
+      border-radius: var(--r-p); padding: 6px 14px;
+      font-size: .73rem; font-weight: 600; color: var(--accent);
+      margin-bottom: 26px; letter-spacing: .2px;
+    }
+    .live { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: lp 2s ease-in-out infinite; }
+    @keyframes lp { 0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)} 70%{box-shadow:0 0 0 8px rgba(34,197,94,0)} 100%{box-shadow:0 0 0 0 rgba(34,197,94,0)} }
+
+    .hgreet { font-size: .97rem; color: var(--t2); margin-bottom: 6px; }
+    .hname {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1.05; color: var(--t1);
+    }
+    .hname .g {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hrole { font-size: 1.15rem; color: var(--t2); margin: 16px 0 20px; font-weight: 400; }
+    .hrole strong { color: var(--t1); font-weight: 600; }
+    .typed-t { color: var(--accent); border-right: 2px solid var(--accent); padding-right: 2px; animation: bc .75s step-end infinite; }
+    @keyframes bc { 50% { border-color: transparent; } }
+
+    .hdesc { color: var(--t2); font-size: .95rem; line-height: 1.8; max-width: 520px; margin-bottom: 34px; }
+
+    .hbtns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: var(--r-p);
+      font-size: .875rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; border: none; transition: all var(--t) var(--ease);
+    }
+    .btn-p {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; box-shadow: 0 6px 20px rgba(77,166,255,.35);
+    }
+    .btn-p:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(77,166,255,.52); color: #fff; }
+    .btn-g {
+      background: var(--glass); border: 1px solid var(--border); color: var(--t2);
+    }
+    .btn-g:hover { background: var(--glass-h); border-color: var(--accent); color: var(--t1); transform: translateY(-2px); }
+
+    .hstats {
+      display: flex; gap: 30px; margin-top: 44px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .stat-n { font-size: 1.75rem; font-weight: 800; letter-spacing: -1px; color: var(--t1); }
+    .stat-n span { color: var(--accent); }
+    .stat-l { font-size: .76rem; color: var(--t3); font-weight: 500; margin-top: 1px; }
+
+    /* ABOUT */
+    #about { background: rgba(4,21,36,.45); }
+    .about-grid { display: grid; grid-template-columns: 270px 1fr; gap: 44px; align-items: start; }
+    .aimg-wrap { position: relative; }
+    .aimg-wrap img { border-radius: var(--r-xl); border: 1px solid var(--border); box-shadow: var(--sh); }
+    .aimg-wrap::before {
+      content: ''; position: absolute; inset: -8px;
+      border-radius: calc(var(--r-xl) + 8px);
+      background: linear-gradient(135deg, rgba(77,166,255,.18), transparent 60%);
+      z-index: -1;
+    }
+    .about-content h3 { font-size: 1.3rem; font-weight: 700; color: var(--t1); margin-bottom: 12px; letter-spacing: -.3px; }
+    .about-content p { color: var(--t2); font-size: .92rem; line-height: 1.8; margin-bottom: 20px; }
+
+    .info-g { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+    .ii {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: var(--r-m); padding: 11px 14px;
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .ii-l { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); }
+    .ii-v { font-size: .83rem; color: var(--t1); font-weight: 500; }
+    .ii-wide { grid-column: 1 / -1; }
+
+    /* SKILLS */
+    #skills { background: var(--n950); }
+    .skills-g { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .sc {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: var(--r-l); padding: 18px 20px;
+      transition: all var(--t) var(--ease);
+    }
+    .sc:hover { border-color: var(--border-h); background: var(--glass-h); transform: translateY(-2px); box-shadow: var(--shg); }
+    .sh2 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+    .sname { font-size: .9rem; font-weight: 600; color: var(--t1); }
+    .spct { font-size: .78rem; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .strack { height: 5px; background: rgba(255,255,255,.07); border-radius: var(--r-p); overflow: hidden; }
+    .sfill {
+      height: 100%; border-radius: var(--r-p);
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 8px rgba(77,166,255,.45);
+      transition: width 1.3s cubic-bezier(.4,0,.2,1);
+      width: 0;
+    }
+
+    /* RESUME */
+    #resume { background: rgba(4,21,36,.45); }
+    .resume-g { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .rct {
+      font-size: .95rem; font-weight: 700; color: var(--t1);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+    }
+    .rct::after { content:''; flex:1; height:1px; background:var(--border); }
+    .tl { display: flex; flex-direction: column; gap: 12px; }
+    .ti {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: var(--r-l); padding: 16px 18px 16px 20px;
+      position: relative; transition: all var(--t) var(--ease);
+    }
+    .ti:hover { border-color: var(--border-h); background: var(--glass-h); }
+    .ti::before {
+      content: ''; position: absolute; left: 0; top: 18px; bottom: 18px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-radius: var(--r-p);
+    }
+    .ti-per {
+      display: inline-flex; align-items: center;
+      background: rgba(77,166,255,.1); border: 1px solid rgba(77,166,255,.2);
+      border-radius: var(--r-p); padding: 2px 9px;
+      font-size: .66rem; font-weight: 600; color: var(--accent);
+      margin-bottom: 7px; font-family: 'JetBrains Mono', monospace;
+    }
+    .ti-tt { font-size: .9rem; font-weight: 700; color: var(--t1); margin-bottom: 2px; }
+    .ti-org { font-size: .78rem; color: var(--t2); font-style: italic; margin-bottom: 7px; }
+    .ti-desc { font-size: .8rem; color: var(--t2); line-height: 1.65; }
+    .ti-desc ul { padding-left: 14px; list-style: disc; }
+    .ti-desc ul li { margin-bottom: 2px; }
+    .clnk {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: .73rem; color: var(--accent); font-weight: 500;
+      margin-top: 7px; padding: 3px 10px;
+      background: rgba(77,166,255,.09); border: 1px solid rgba(77,166,255,.2);
+      border-radius: var(--r-p); transition: all var(--t) var(--ease);
+    }
+    .clnk:hover { background: rgba(77,166,255,.18); border-color: var(--accent); }
+    .cexp { font-size: .68rem; color: var(--t3); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
+
+    /* PORTFOLIO */
+    #portfolio { background: var(--n950); }
+    .pf-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .pfb {
+      padding: 7px 15px; border-radius: var(--r-p);
+      font-size: .78rem; font-weight: 600;
+      background: var(--glass); border: 1px solid var(--border);
+      color: var(--t2); cursor: pointer;
+      transition: all var(--t) var(--ease); font-family: inherit;
+    }
+    .pfb:hover { border-color: var(--border-h); color: var(--t1); }
+    .pfb.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent; color: #fff;
+      box-shadow: 0 4px 14px rgba(77,166,255,.38);
+    }
+    .pg { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .pc {
+      border-radius: var(--r-l); overflow: hidden;
+      background: var(--glass); border: 1px solid var(--border);
+      position: relative; transition: all var(--t) var(--ease);
+      aspect-ratio: 4/3;
+    }
+    .pc img { width:100%; height:100%; object-fit:cover; transition: transform .5s var(--ease); }
+    .pc:hover { border-color: var(--border-h); transform: translateY(-3px); box-shadow: var(--sh), var(--shg); }
+    .pc:hover img { transform: scale(1.06); }
+    .pov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(2,14,30,.9) 0%, transparent 60%);
+      opacity: 0; transition: opacity var(--t) var(--ease);
+      display: flex; align-items: flex-end; padding: 14px;
+    }
+    .pc:hover .pov { opacity: 1; }
+    .pov-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .95rem; transition: all var(--t) var(--ease);
+    }
+    .pov-btn:hover { background: var(--accent2); transform: scale(1.1); }
+
+    /* BACK TO TOP */
+    .btt {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 44px; height: 44px; border-radius: var(--r-l);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      opacity: 0; visibility: hidden;
+      transition: all var(--t) var(--ease);
+      z-index: 996; box-shadow: 0 6px 20px rgba(77,166,255,.4);
+    }
+    .btt.on { opacity: 1; visibility: visible; }
+    .btt:hover { transform: translateY(-3px); color: #fff; }
+
+    /* FADE-UP */
+    .fu { opacity: 0; transform: translateY(28px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+    .fu.v { opacity: 1; transform: translateY(0); }
+    .fu.d1 { transition-delay: .1s; }
+    .fu.d2 { transition-delay: .2s; }
+    .fu.d3 { transition-delay: .3s; }
+
+    /* RESPONSIVE */
+    @media (max-width:1199px) {
+      #header { left: -310px; }
+      #main { margin-left: 0; }
+      #header.hs { left: 0; }
+    }
+    @media (min-width:1200px) { .mobile-nav-toggle { display: none !important; } }
+    @media (max-width:900px) {
+      section { padding: 55px 26px; }
+      .about-grid, .resume-g { grid-template-columns: 1fr; }
+      .skills-g { grid-template-columns: 1fr; }
+      .pg { grid-template-columns: repeat(2,1fr); }
+      .hstats { gap: 18px; }
+    }
+    @media (max-width:580px) {
+      section { padding: 46px 16px; }
+      .pg { grid-template-columns: 1fr; }
+      .info-g { grid-template-columns: 1fr; }
+      .hname { font-size: 2.1rem; }
+    }
+  </style>
 </head>
 
 <body>
-
-  <!-- ======= Mobile nav toggle button ======= -->
+  <div class="bg"></div>
   <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
-  <!-- ======= Header ======= -->
+  <!-- SIDEBAR -->
   <header id="header">
-    <div class="d-flex flex-column">
-
-      <div class="profile">
-        <img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Mico Yumna Ardhana</a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="https://www.instagram.com/mico_ardhana0907?igsh=MTgzdzRzazFuazFlbg==" class="instagram"><i
-              class="bx bxl-instagram"></i></a>
-          <a href="https://www.linkedin.com/in/micoyumnaardhana/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-        </div>
+    <div class="profile">
+      <div class="pimg-wrap">
+        <img src="assets/img/profile-img.jpg" alt="Mico Yumna Ardhana">
       </div>
-
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Tentang</span></a></li>
-          <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i>
-              <span>Portfolio</span></a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
+      <h1><a href="index.html">Mico Yumna Ardhana</a></h1>
+      <div class="role-badge"><span class="rdot"></span>Mobile Developer</div>
     </div>
-  </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="hero-container" data-aos="fade-in">
-      <h1>Mico Yumna Ardhana</h1>
-      <p>I'm <span class="typed" data-typed-items="Mobile App Developer"></span></p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/mico_ardhana0907?igsh=MTgzdzRzazFuazFlbg==" title="Instagram"><i class="bx bxl-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/micoyumnaardhana/" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
     </div>
-  </section><!-- End Hero -->
 
-  <main id="main">
+    <div class="sdiv"></div>
 
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
+    <nav id="navbar">
+      <ul class="nav-menu">
+        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home-alt"></i><span>Home</span></a></li>
+        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i><span>Tentang</span></a></li>
+        <li><a href="#skills" class="nav-link scrollto"><i class="bx bx-code-alt"></i><span>Skills</span></a></li>
+        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i><span>Resume</span></a></li>
+        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-grid-alt"></i><span>Portfolio</span></a></li>
+      </ul>
+    </nav>
 
-        <div class="section-title">
-          <h2>About</h2>
-          <p></p>
+    <div class="sfooter">© 2026 Mico Yumna Ardhana<br>Flutter &amp; Kotlin Developer</div>
+  </header>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-inner">
+        <div class="htag"><span class="live"></span>Available for opportunities</div>
+        <p class="hgreet">Halo, Saya</p>
+        <h1 class="hname">Mico Yumna<br><span class="g">Ardhana</span></h1>
+        <p class="hrole">Saya seorang <strong><span id="typed-output" class="typed-t">Mobile App Developer</span></strong></p>
+        <p class="hdesc">Flutter &amp; Kotlin developer yang membangun pengalaman mobile yang intuitif, performant, dan estetis untuk Android &amp; iOS.</p>
+        <div class="hbtns">
+          <a href="#portfolio" class="btn btn-p"><i class="bi bi-grid-3x3-gap"></i>Lihat Portfolio</a>
+          <a href="#about" class="btn btn-g"><i class="bi bi-person"></i>Tentang Saya</a>
+        </div>
+        <div class="hstats">
+          <div><div class="stat-n">7<span>+</span></div><div class="stat-l">Proyek Selesai</div></div>
+          <div><div class="stat-n">2<span>+</span></div><div class="stat-l">Tahun Pengalaman</div></div>
+          <div><div class="stat-n">12<span>+</span></div><div class="stat-l">Sertifikat</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="sec-title fu">
+        <div class="sec-label">Profil</div>
+        <h2>Tentang <span>Saya</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="aimg-wrap fu">
+          <img src="assets/img/profile-img.jpg" alt="Mico Yumna Ardhana">
+        </div>
+        <div class="about-content fu d1">
+          <h3>Flutter &amp; Kotlin Mobile App Developer</h3>
+          <p>Saya adalah seorang pengembang mobile yang mengkhususkan diri dalam pengembangan aplikasi menggunakan Kotlin dan Flutter. Dengan latar belakang kuat dalam pemrograman, saya telah membuat berbagai aplikasi seluler yang fungsional dan menarik untuk platform Android dan iOS.</p>
+          <p>Selama kuliah, saya aktif bekerja paruh waktu sebagai pengembang Flutter dan Kotlin, memungkinkan saya mempraktikkan teori dari kelas sekaligus meningkatkan keterampilan teknis dan manajemen waktu.</p>
+          <div class="info-g">
+            <div class="ii"><span class="ii-l">Tanggal Lahir</span><span class="ii-v">9 Juli 2001</span></div>
+            <div class="ii"><span class="ii-l">No. WA</span><span class="ii-v">089648857199</span></div>
+            <div class="ii"><span class="ii-l">Pendidikan</span><span class="ii-v">Diploma 3 Manajemen Informatika</span></div>
+            <div class="ii"><span class="ii-l">Email</span><span class="ii-v">micoardhana2001@gmail.com</span></div>
+            <div class="ii ii-wide"><span class="ii-l">Alamat Asal</span><span class="ii-v">Wanutengah RT.03 RW.01, Parakan, Temanggung</span></div>
+            <div class="ii ii-wide"><span class="ii-l">Tempat Tinggal</span><span class="ii-v">Jl. Nangka 176, Tempel, Caturtunggal, Kec. Depok, Sleman, DIY 55281</span></div>
+          </div>
+          <a href="#portfolio" class="btn btn-p"><i class="bi bi-collection"></i>Lihat Portfolio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="sec-title fu">
+        <div class="sec-label">Kemampuan</div>
+        <h2>Tech <span>Stack</span></h2>
+      </div>
+      <div class="skills-g">
+        <div class="sc fu"><div class="sh2"><span class="sname">🎯 Kotlin</span><span class="spct">80%</span></div><div class="strack"><div class="sfill" data-w="80"></div></div></div>
+        <div class="sc fu d1"><div class="sh2"><span class="sname">💙 Flutter</span><span class="spct">100%</span></div><div class="strack"><div class="sfill" data-w="100"></div></div></div>
+        <div class="sc fu d2"><div class="sh2"><span class="sname">🤖 Android Development</span><span class="spct">85%</span></div><div class="strack"><div class="sfill" data-w="85"></div></div></div>
+        <div class="sc fu d3"><div class="sh2"><span class="sname">🎨 UI / UX Design</span><span class="spct">75%</span></div><div class="strack"><div class="sfill" data-w="75"></div></div></div>
+        <div class="sc fu"><div class="sh2"><span class="sname">🔗 REST API Integration</span><span class="spct">80%</span></div><div class="strack"><div class="sfill" data-w="80"></div></div></div>
+        <div class="sc fu d1"><div class="sh2"><span class="sname">🐙 Git &amp; GitHub</span><span class="spct">78%</span></div><div class="strack"><div class="sfill" data-w="78"></div></div></div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume">
+      <div class="sec-title fu">
+        <div class="sec-label">Perjalanan</div>
+        <h2>Resume &amp; <span>Sertifikat</span></h2>
+      </div>
+      <div class="resume-g">
+
+        <!-- LEFT: Pendidikan + Sertifikat -->
+        <div class="fu">
+          <div class="rct">🎓 Pendidikan</div>
+          <div class="tl">
+            <div class="ti">
+              <span class="ti-per">Feb 2023 – Jul 2023</span>
+              <div class="ti-tt">Mobile Development Cohort</div>
+              <div class="ti-org">Bangkit Academy — Google, Tokopedia, Gojek, Traveloka</div>
+              <div class="ti-desc">Cohort Bangkit Academy Mobile Developer App</div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">2021 – Sekarang</span>
+              <div class="ti-tt">D3 Manajemen Informatika</div>
+              <div class="ti-org">Universitas Amikom Yogyakarta</div>
+              <div class="ti-desc">Konsentrasi Mobile Developer</div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">2017 – 2020</span>
+              <div class="ti-tt">Otomatisasi Tata Kelola Perkantoran</div>
+              <div class="ti-org">SMK Negeri 2 Temanggung</div>
+            </div>
+          </div>
+
+          <div class="rct" style="margin-top:28px;">🏆 Sertifikat</div>
+          <div class="tl">
+            <div class="ti">
+              <div class="ti-tt">Android Mobile Development</div>
+              <div class="ti-org">Bangkit Academy — Google, Tokopedia, Gojek, Traveloka</div>
+              <a href="https://drive.google.com/file/d/14xlr1SqFkDIgqTYEIDRunkjszpAJtWzG/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Android Developer Expert</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 18 Agustus 2026</div>
+              <a href="https://drive.google.com/file/d/1266OugKs7PO_lKcG9KEk78M-5ZvCCCtd/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Jetpack Compose Android</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 13 Mei 2026</div>
+              <a href="https://drive.google.com/file/d/1CBpkSvU7AU5jmh1SQOVrvMivR5te-v_0/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Android Intermediate</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 06 Mei 2026</div>
+              <a href="https://drive.google.com/file/d/1DVc7omANDUIqYU1AOmYEe0KWLln11UM6/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Prinsip Pemrograman SOLID</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 21 Februari 2026</div>
+              <a href="https://drive.google.com/file/d/1FRUUh4eA7gJq0R9ymXFcIGci7avlCILi/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Dasar UX Design</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 28 Februari 2026</div>
+              <a href="https://drive.google.com/file/d/1RkVJEzHaNaiPLinX2X_8B-Q2wF9JCDGR/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Dasar Git dengan GitHub</div>
+              <div class="ti-org">Dicoding Indonesia</div>
+              <div class="cexp">Exp. 28 Februari 2026</div>
+              <a href="https://drive.google.com/file/d/1HoK0AXahKG_zL4D7VWEOyS7UR24G3d1O/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Asisten Dosen — Statistik Bisnis</div>
+              <div class="ti-org">Universitas Amikom Yogyakarta</div>
+              <a href="https://drive.google.com/file/d/1io5aQhCAIqaL__HUsFJ-cXfXnQw53VWx/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+            <div class="ti">
+              <div class="ti-tt">Asisten Dosen — Algoritma &amp; Struktur Data</div>
+              <div class="ti-org">Universitas Amikom Yogyakarta</div>
+              <a href="https://drive.google.com/file/d/1DvbbodFxBHKCV3AojrUFHNVP2Qv6iKgF/view" class="clnk" target="_blank"><i class="bi bi-box-arrow-up-right"></i>Lihat Sertifikat</a>
+            </div>
+          </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <h3>Flutter &amp Kotlin Mobile App Developer</h3>
-            <p class="fst-italic">
-              Saya adalah seorang pengembang mobile, saya mengkhususkan diri dalam pengembangan aplikasi menggunakan
-              Kotlin dan Flutter. Dengan latar belakang yang kuat dalam pemrograman dan pengembangan aplikasi, saya
-              telah berhasil membuat berbagai aplikasi seluler yang fungsional dan menarik untuk platform Android dan
-              iOS. Selama kuliah, saya tidak hanya fokus pada studi akademis tetapi juga aktif bekerja paruh waktu
-              sebagai pengembang Flutter dan Kotlin. Pengalaman ini memungkinkan saya untuk mempraktikkan teori yang
-              dipelajari di kelas, sambil meningkatkan keterampilan teknis dan manajemen waktu saya.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Tanggal Lahir:</strong> <span>9 Juli 2001</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>No Handphone/WA:</strong> <span>089648857199</span>
-                  </li>
-
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Pendidikan Terakhir:</strong> <span>Diploma 3</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>micoardhana2001@gmail.com</span>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-12">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Alamat Asal:</strong> <span>Wanutengah RT.03 RW.01
-                      Parakan, Temanggung</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Tempat Tinggal:</strong> <span>Jl. Nangka 176, Tempel,
-                      Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</span></li>
-                </ul>
-              </div>
+        <!-- RIGHT: Pengalaman -->
+        <div class="fu d1">
+          <div class="rct">💼 Pengalaman</div>
+          <div class="tl">
+            <div class="ti">
+              <span class="ti-per">Agustus 2024</span>
+              <div class="ti-tt">Trivia Roulette</div>
+              <div class="ti-org">Authenticity X Sound Project</div>
+              <div class="ti-desc"><ul>
+                <li>Pengembang Aplikasi Mobile menggunakan Flutter</li>
+                <li>Implementasi UI yang intuitif dan menarik</li>
+                <li>Pengujian dan debugging untuk performa optimal</li>
+              </ul></div>
             </div>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
+            <div class="ti">
+              <span class="ti-per">Juli 2024</span>
+              <div class="ti-tt">Trivia TSP</div>
+              <div class="ti-org">Authenticity X Sound Project</div>
+              <div class="ti-desc"><ul>
+                <li>Pengembangan fitur-fitur sesuai kebutuhan proyek</li>
+                <li>Memperbaiki bug dan mengoptimalkan performa</li>
+                <li>Koordinasi dengan tim desain untuk keselarasan UI/UX</li>
+              </ul></div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">Jun – Jul 2024</span>
+              <div class="ti-tt">Salud App</div>
+              <div class="ti-org">Dinas Perhubungan Kabupaten Bantul</div>
+              <div class="ti-desc"><ul>
+                <li>App edukasi rambu lalu lintas untuk anak dan remaja</li>
+                <li>Koordinasi dengan dinas untuk integrasi data</li>
+                <li>Pengujian dan debugging kehandalan aplikasi</li>
+              </ul></div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">Jun – Jul 2024</span>
+              <div class="ti-tt">Retail Bantul Sejahtera</div>
+              <div class="ti-org">Dinas Perhubungan Kabupaten Bantul</div>
+              <div class="ti-desc"><ul>
+                <li>Aplikasi retail untuk mendukung UMKM Bantul</li>
+                <li>Integrasi fitur pembayaran dan manajemen inventori</li>
+              </ul></div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">Feb – Apr 2024</span>
+              <div class="ti-tt">Point Of Sales Mobile App</div>
+              <div class="ti-org">PT. Rizq Sanjaya Teknologi</div>
+              <div class="ti-desc"><ul>
+                <li>Implementasi UI untuk aplikasi Point of Sales</li>
+                <li>Fitur manajemen transaksi &amp; laporan penjualan</li>
+                <li>Koordinasi backend untuk integrasi API</li>
+              </ul></div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">Sep – Okt 2023</span>
+              <div class="ti-tt">Simona Mobile App (Kotlin)</div>
+              <div class="ti-org">PT. Rizq Sanjaya Teknologi</div>
+              <div class="ti-desc"><ul>
+                <li>UI ramah pengguna dengan Kotlin</li>
+                <li>Fitur aplikasi sesuai kebutuhan klien</li>
+                <li>Quality assurance dan debugging</li>
+              </ul></div>
+            </div>
+            <div class="ti">
+              <span class="ti-per">Mei – Jun 2023</span>
+              <div class="ti-tt">Gubuk Tani — Mobile Developer</div>
+              <div class="ti-org">Bangkit Academy (Google, Tokopedia, Gojek, Traveloka)</div>
+              <div class="ti-desc"><ul>
+                <li>Kotlin developer untuk aplikasi pendukung petani</li>
+                <li>Implementasi UI intuitif dan fitur utama</li>
+                <li>Pengujian dan debugging kehandalan</li>
+              </ul></div>
+            </div>
           </div>
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
 
-
-
-    <!-- ======= Skills Section ======= -->
-    <section id="skills" class="skills section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Skills</h2>
-        </div>
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6" data-aos="fade-up">
-
-            <div class="progress">
-              <span class="skill">Kotlin <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">Flutter <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="sec-title fu">
+        <div class="sec-label">Karya</div>
+        <h2>Portfolio <span>Saya</span></h2>
+        <p>Berikut merupakan aplikasi yang pernah saya buat</p>
       </div>
-    </section><!-- End Skills Section -->
 
-    <!-- ======= Resume Section ======= -->
-    <section id="resume" class="resume">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Resume</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
-
-
-
-            <h3 class="resume-title">Pendidikan</h3>
-            <div class="resume-item">
-              <h4>Mobile Development Cohort</h4>
-              <h5>Februari 2023 - Juli 2023</h5>
-              <p><em>Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka</em></p>
-              <p>Sebagai Cohort Bangkit Academy Mobile Developer App</p>
-            </div>
-            <div class="resume-item">
-              <h4>D3 Manajemen Informatika</h4>
-              <h5>2021 - Sekarang</h5>
-              <p><em>Universitas Amikom Yogyakarta</em></p>
-              <p>Konsentrasi Mobile Developer</p>
-            </div>
-            <div class="resume-item">
-              <h4>Otomatisasi Tata Kelola Perkantoran</h4>
-              <h5>2017 - 2020</h5>
-              <p><em>SMK Negeri 2 Temanggung</em></p>
-            </div>
-            <h3 class="resume-title">Sertifikat</h3>
-
-            <div class="resume-item">
-              <h4>Android Mobile Development Bangkit Academy</h4>
-              <p><em>Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka</em></p>
-              <a href="https://drive.google.com/file/d/14xlr1SqFkDIgqTYEIDRunkjszpAJtWzG/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar menjadi Android Developer Expert</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.18 Agustus 2026</p>
-              <a href="https://drive.google.com/file/d/1266OugKs7PO_lKcG9KEk78M-5ZvCCCtd/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Membuat Aplikasi Android dengan Jetpack Compose</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.13 Mei 2026</p>
-              <a href="https://drive.google.com/file/d/1CBpkSvU7AU5jmh1SQOVrvMivR5te-v_0/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Pengembangan Aplikasi Android Intermediate</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.06 Mei 2026</p>
-              <a href="https://drive.google.com/file/d/1DVc7omANDUIqYU1AOmYEe0KWLln11UM6/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Prinsip Pemrograman SOLID</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.21 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1FRUUh4eA7gJq0R9ymXFcIGci7avlCILi/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Membuat Aplikasi Android untuk Pemula</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.26 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1J-TldiPFRYS7-NKDiJgpOgpoYQS0KhnP/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Fundamental Aplikasi Android</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.06 April 2026</p>
-              <a href="https://drive.google.com/file/d/1JaDR-4a63UnAmrqf-__XtE-dGvx1QQP2/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Dasar UX Design</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.28 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1RkVJEzHaNaiPLinX2X_8B-Q2wF9JCDGR/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Pengenalan ke Logika Pemrograman (Programming Logic 101)</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.24 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1xeV58BnDr_WAw2N2mJSkHAAezX2czMlV/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Memulai Dasar Pemrograman untuk Menjadi Pengembang Software</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.24 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1SNA5H9ZlMTvxVGrq_NtdmDJ2y6pRvrCF/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Memulai Pemrograman Dengan Kotlin</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.22 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1zwOdSjJgLR7mEy1yD8mltOgTApvubZFO/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Belajar Dasar Git dengan GitHub</h4>
-              <p><em>DICODING INDONESIA</em></p>
-              <p>Exp.28 Februari 2026</p>
-              <a href="https://drive.google.com/file/d/1HoK0AXahKG_zL4D7VWEOyS7UR24G3d1O/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-
-            <div class="resume-item">
-              <h4>Asisten Dosen Statistik Bisnis</h4>
-              <p><em>Universitas Amikom Yogyakarta</em></p>
-              <a href="https://drive.google.com/file/d/1io5aQhCAIqaL__HUsFJ-cXfXnQw53VWx/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-            <div class="resume-item">
-              <h4>Asisten Dosen Algoritma Struktur Data</h4>
-              <p><em>Universitas Amikom Yogyakarta</em></p>
-              <a href="https://drive.google.com/file/d/1DvbbodFxBHKCV3AojrUFHNVP2Qv6iKgF/view?usp=drive_link">Lihat
-                Sertifikat</a>
-            </div>
-
-          </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Pengalaman</h3>
-            <div class="resume-item">
-              <h4>Trivia Roulette</h4>
-              <h5>Agustus 2024</h5>
-              <p><em>Authenticity X Sound Project</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Flutter</li>
-                <li>Mengimplementasikan antarmuka pengguna (UI) yang intuitif dan menarik</li>
-                <li>Melakukan pengujian dan debugging aplikasi untuk memastikan performa yang optimal</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Trivia TSP</h4>
-              <h5>Juli 2024</h5>
-              <p><em>Authenticity X Sound Project</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Flutter</li>
-                <li>Mengembangkan fitur-fitur sesuai kebutuhan proyek</li>
-                <li>Memperbaiki bug dan mengoptimalkan performa aplikasi</li>
-                <li>Berkomunikasi dengan tim desain untuk memastikan keselarasan antara UI dan UX</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Salud App</h4>
-              <h5>Juni 2024 - Juli 2024</h5>
-              <p><em>Dinas Perhubungan Kabupaten Bantul</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Flutter</li>
-                <li>Mengembangkan aplikasi untuk mempermudah pembelajaran tentang rambu-rambu lalulintas untuk kalangan
-                  anak-anak dan remaja</li>
-                <li>Berkoordinasi dengan dinas perhubungan untuk integrasi data</li>
-                <li>Melakukan pengujian dan debugging aplikasi untuk memastikan kehandalan</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Retail Bantul Sejahtera</h4>
-              <h5>Juni 2024 - Juli 2024</h5>
-              <p><em>Dinas Perhubungan Kabupaten Bantul</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Flutter</li>
-                <li>Mengembangkan aplikasi retail untuk mendukung UMKM di Kabupaten Bantul</li>
-                <li>Memastikan aplikasi mudah digunakan dan memiliki performa yang baik</li>
-                <li>Mengintegrasi fitur pembayaran dan manajemen inventori</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Point Of Sales Mobile App Developer</h4>
-              <h5>Februari 2024 - April 2024</h5>
-              <p><em>PT. Rizq Sanjaya Teknologi</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Flutter</li>
-                <li>Merancang dan mengimplementasikan antarmuka pengguna (UI) untuk aplikasi Point of Sales</li>
-                <li>Mengembangkan fitur-fitur utama seperti manajemen transaksi dan laporan penjualan</li>
-                <li>Berkoordinasi dengan tim backend untuk integrasi API</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Simona Mobile App Developer</h4>
-              <h5>September 2023 - Oktober 2023</h5>
-              <p><em>PT. Rizq Sanjaya Teknologi</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Kotlin</li>
-                <li>Merancang dan mengimplementasikan antarmuka pengguna (UI) yang ramah pengguna</li>
-                <li>Mengembangkan fitur-fitur aplikasi sesuai kebutuhan klien</li>
-                <li>Melakukan pengujian dan debugging untuk memastikan kualitas aplikasi</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Gubuk Tani Mobile Developer App</h4>
-              <h5>Mei 2023 - Juni 2023</h5>
-              <p><em>Bangkit Academy dipimpin oleh Google, Tokopedia, Gojek, & Traveloka</em></p>
-              <ul>
-                <li>Berperan sebagai Pengembang Aplikasi Mobile menggunakan Kotlin</li>
-                <li>Merancang dan mengimplementasikan antarmuka pengguna (UI) yang intuitif dan menarik</li>
-                <li>Mengembangkan fitur-fitur utama aplikasi untuk mendukung petani</li>
-                <li>Melakukan pengujian dan debugging untuk memastikan kehandalan aplikasi</li>
-              </ul>
-            </div>
-
-    </section><!-- End Resume Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>Berikut merupakan aplikasi yang pernah saya buat</p>
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-mate">ProjekMate</li>
-              <li data-filter=".filter-app">Simona</li>
-              <li data-filter=".filter-card">Gubuk Tani</li>
-              <li data-filter=".filter-web">Point Of Sales</li>
-              <li data-filter=".filter-retail">Retail Bantul Sejahtera</li>
-              <li data-filter=".filter-salud">Salud App</li>
-              <li data-filter=".filter-tsp">Trivia TSP</li>
-              <li data-filter=".filter-rtt">Trivia Roulette</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-4 col-md-6 portfolio-item filter-mate">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/projectmate4.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/projectmate4.jpeg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-mate">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/projectmate2.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/projectmate2.jpeg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-mate">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/projectmate3.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/projectmate3.jpeg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-mate">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/projectmate.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/projectmate.jpeg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dashboard.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/dashboard.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/anggaran.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/anggaran.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/belanja.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/belanja.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/infografis.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/infografis.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/home_gt.png" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/home_gt.png" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/detail_gt.png" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/detail_gt.png" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/detection_gt.png" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/detection_gt.png" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/riwayat_gt.png" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/riwayat_gt.png" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/home.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/home.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/kasir.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/kasir.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/detailstok.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/detailstok.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/stok.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/stok.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/struk.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/struk.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-retail">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/retailbantul.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/retailbantul.jpg" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-retail">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/retailbantul1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/retailbantul1.jpg" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-retail">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/retailbantul2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/retailbantul2.jpg" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-retail">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/retailbantul3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/retailbantul3.jpg" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-retail">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/retailbantul4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/retailbantul4.jpg" data-gallery="portfolioGallery"
-                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-salud">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/salud1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/salud1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-salud">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/salud2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/salud2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-salud">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/salud3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/salud3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-salud">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/salud4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/salud4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-salud">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/salud5.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/salud5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-rtt">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tsp.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/tsp.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-rtt">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tsp2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/tsp2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-rtt">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tsp3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/tsp3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-rtt">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tsp4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/tsp4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-rtt">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tsp5.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/tsp5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-tsp">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/rtt1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/rtt1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-tsp">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/rtt2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/rtt2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-tsp">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/rtt3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/rtt3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-tsp">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/rtt4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/rtt4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-tsp">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/rtt5.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/rtt5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title=""><i class="bx bx-plus"></i></a>
-
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
+      <div class="pf-filters fu">
+        <button class="pfb active" data-filter="*">Semua</button>
+        <button class="pfb" data-filter="filter-mate">ProjekMate</button>
+        <button class="pfb" data-filter="filter-app">Simona</button>
+        <button class="pfb" data-filter="filter-card">Gubuk Tani</button>
+        <button class="pfb" data-filter="filter-web">Point Of Sales</button>
+        <button class="pfb" data-filter="filter-retail">Retail Bantul</button>
+        <button class="pfb" data-filter="filter-salud">Salud App</button>
+        <button class="pfb" data-filter="filter-tsp">Trivia TSP</button>
+        <button class="pfb" data-filter="filter-rtt">Trivia Roulette</button>
       </div>
-    </section><!-- End Portfolio Section -->
 
-    <!-- ======= Services Section ======= -->
+      <div class="pg fu" id="pg">
+        <!-- ProjekMate -->
+        <div class="pc" data-f="filter-mate"><img src="assets/img/portfolio/projectmate4.jpeg" alt=""><div class="pov"><a href="assets/img/portfolio/projectmate4.jpeg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-mate"><img src="assets/img/portfolio/projectmate2.jpeg" alt=""><div class="pov"><a href="assets/img/portfolio/projectmate2.jpeg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-mate"><img src="assets/img/portfolio/projectmate3.jpeg" alt=""><div class="pov"><a href="assets/img/portfolio/projectmate3.jpeg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-mate"><img src="assets/img/portfolio/projectmate.jpeg" alt=""><div class="pov"><a href="assets/img/portfolio/projectmate.jpeg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Simona -->
+        <div class="pc" data-f="filter-app"><img src="assets/img/portfolio/dashboard.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/dashboard.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-app"><img src="assets/img/portfolio/anggaran.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/anggaran.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-app"><img src="assets/img/portfolio/belanja.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/belanja.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-app"><img src="assets/img/portfolio/infografis.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/infografis.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Gubuk Tani -->
+        <div class="pc" data-f="filter-card"><img src="assets/img/portfolio/home_gt.png" alt=""><div class="pov"><a href="assets/img/portfolio/home_gt.png" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-card"><img src="assets/img/portfolio/detail_gt.png" alt=""><div class="pov"><a href="assets/img/portfolio/detail_gt.png" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-card"><img src="assets/img/portfolio/detection_gt.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/detection_gt.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Point of Sales -->
+        <div class="pc" data-f="filter-web"><img src="assets/img/portfolio/home.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/home.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-web"><img src="assets/img/portfolio/kasir.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/kasir.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-web"><img src="assets/img/portfolio/detailstok.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/detailstok.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Retail Bantul -->
+        <div class="pc" data-f="filter-retail"><img src="assets/img/portfolio/retailbantul.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/retailbantul.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-retail"><img src="assets/img/portfolio/retailbantul1.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/retailbantul1.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-retail"><img src="assets/img/portfolio/retailbantul2.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/retailbantul2.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-retail"><img src="assets/img/portfolio/retailbantul3.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/retailbantul3.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Salud -->
+        <div class="pc" data-f="filter-salud"><img src="assets/img/portfolio/salud1.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/salud1.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-salud"><img src="assets/img/portfolio/salud2.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/salud2.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-salud"><img src="assets/img/portfolio/salud3.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/salud3.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-salud"><img src="assets/img/portfolio/salud4.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/salud4.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-salud"><img src="assets/img/portfolio/salud5.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/salud5.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Trivia TSP -->
+        <div class="pc" data-f="filter-tsp"><img src="assets/img/portfolio/rtt1.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/rtt1.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-tsp"><img src="assets/img/portfolio/rtt2.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/rtt2.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-tsp"><img src="assets/img/portfolio/rtt3.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/rtt3.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <!-- Trivia Roulette -->
+        <div class="pc" data-f="filter-rtt"><img src="assets/img/portfolio/tsp.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/tsp.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-rtt"><img src="assets/img/portfolio/tsp2.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/tsp2.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-rtt"><img src="assets/img/portfolio/tsp3.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/tsp3.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-rtt"><img src="assets/img/portfolio/tsp4.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/tsp4.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+        <div class="pc" data-f="filter-rtt"><img src="assets/img/portfolio/tsp5.jpg" alt=""><div class="pov"><a href="assets/img/portfolio/tsp5.jpg" class="pov-btn glightbox" data-gallery="g"><i class="bi bi-plus-lg"></i></a></div></div>
+      </div>
+    </section>
 
+  </div><!-- End #main -->
 
-  </main><!-- End #main -->
+  <a href="#" class="btt"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- ======= Footer ======= -->
-  !-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- JS -->
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script>
+    // Mobile Nav
+    const tog = document.querySelector('.mobile-nav-toggle');
+    const hdr = document.getElementById('header');
+    tog?.addEventListener('click', () => {
+      hdr.classList.toggle('hs');
+      tog.classList.toggle('bi-list');
+      tog.classList.toggle('bi-x');
+    });
 
+    // Smooth scroll
+    document.querySelectorAll('.scrollto').forEach(l => {
+      l.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(l.getAttribute('href'));
+        if (t) { t.scrollIntoView({ behavior: 'smooth' }); hdr.classList.remove('hs'); }
+      });
+    });
+
+    // Active nav
+    const secs = document.querySelectorAll('section[id]');
+    const nls = document.querySelectorAll('.nav-link');
+    function setNav() {
+      let cur = '';
+      secs.forEach(s => { if (scrollY >= s.offsetTop - 130) cur = s.id; });
+      nls.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+      });
+    }
+    addEventListener('scroll', setNav);
+
+    // Back to top
+    const btt = document.querySelector('.btt');
+    addEventListener('scroll', () => btt?.classList.toggle('on', scrollY > 300));
+    btt?.addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // Fade up
+    const fus = document.querySelectorAll('.fu');
+    const fo = new IntersectionObserver(ents => {
+      ents.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+    }, { threshold: 0.1 });
+    fus.forEach(el => fo.observe(el));
+
+    // Skill bars
+    const so = new IntersectionObserver(ents => {
+      ents.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.sfill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+          so.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('#skills').forEach(el => so.observe(el));
+
+    // Typed text
+    const words = ['Mobile App Developer', 'Flutter Developer', 'Kotlin Developer', 'UI Enthusiast'];
+    let wi = 0, ci = 0, del = false;
+    const tel = document.getElementById('typed-output');
+    function typed() {
+      if (!tel) return;
+      const w = words[wi];
+      tel.textContent = del ? w.slice(0, ci--) : w.slice(0, ci++);
+      let d = del ? 55 : 95;
+      if (!del && ci > w.length) { del = true; d = 1800; }
+      else if (del && ci < 0) { del = false; wi = (wi + 1) % words.length; d = 280; }
+      setTimeout(typed, d);
+    }
+    typed();
+
+    // Portfolio filter
+    document.querySelectorAll('.pfb').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pfb').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.pc').forEach(c => {
+          c.style.display = (f === '*' || c.dataset.f === f) ? '' : 'none';
+        });
+      });
+    });
+
+    // GLightbox
+    GLightbox({ selector: '.glightbox' });
+  </script>
 </body>
-
 </html>
